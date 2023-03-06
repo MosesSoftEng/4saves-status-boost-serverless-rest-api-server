@@ -7,11 +7,17 @@ import {User} from './model';
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 
-export async function getUserByPhone(userPhone: string): Promise<User> {
+
+/**
+ * Retrieves a user from the database table with the specified phone number.
+ * @param {string} phone - The phone number of the user to retrieve.
+ * @returns {Promise<User>} - A promise that resolves to the retrieved user object.
+ */
+export async function getUserByPhone(phone: string): Promise<User> {
 	const result = await docClient.get({
 		TableName: process.env.TABLE_USERS,
 		Key: {
-			phone: userPhone,
+			phone: phone,
 		},
 	}).promise();
 
