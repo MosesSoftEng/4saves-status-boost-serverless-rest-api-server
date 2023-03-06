@@ -15,26 +15,28 @@ import {middyfy} from '@libs/lambda';
 import schema from './schema';
 
 // Business logic aka services.
-import { createCode } from './service';
+import { verifyCode } from './service';
 
 /*
- * createCodeHan - function
+ * 
  */
-const createCodeFun: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+const verifyCodeFun: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
 	try {
-		const code = await createCode(event.body.phone);
+		// TODO: use spread operator
+		const token = await verifyCode(event.body.phone, event.body.code);
 
 		return formatJSONResponse({
 			message: 'User created',
-			data: code
+			data: token
 		});
 	} catch (error) {
+		// TODO: Do not show error in api, only for internal consumption, send sonsumer an error code
 		return formatJSONResponse({
 			statusCode: 500,
-			message: 'Failed to create code',
+			message: 'Failed to verify code',
 			error: error.message
 		});
 	}
 };
 
-export const createCodeHan = middyfy(createCodeFun);
+export const verifyCodeHan = middyfy(verifyCodeFun);

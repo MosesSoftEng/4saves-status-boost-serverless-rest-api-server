@@ -3,6 +3,7 @@ import type {AWS} from '@serverless/typescript';
 import hello from '@functions/hello';
 import users from '@functions/users';
 import user from '@functions/user/code';
+import adminCode from '@functions/admin/code';
 
 const serverlessConfiguration: AWS = {
 	service: 'four-saves',
@@ -38,7 +39,7 @@ const serverlessConfiguration: AWS = {
 	 * Lambda Functions.
 	 */
 	// Import the function via paths.
-	functions: {hello, users, user},
+	functions: {hello, users, user, adminCode},
 	package: {individually: true},
 	custom: {
 		esbuild: {

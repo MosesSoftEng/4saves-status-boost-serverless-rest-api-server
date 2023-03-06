@@ -2,26 +2,25 @@ import * as userRepository from '../../users/repository';
 import {generateCode} from '../../../utils/common';
 
 
-export async function createCode(phone: string): Promise<string> {
+export async function verifyCode(phone: string, code: string): Promise<string> {
 	// Get user.
-	let user = await userRepository.getUserByPhone(phone);
+	const user = await userRepository.getUserByPhone(phone);
 
-	// Create user.
+	// User check.
 	if(!user) {
-		user = {
-			phone: phone,
-			code: '',
-			codeVerified: false,
-			token: '',
-			date: new Date().getTime()
-		};
+		throw new Error(`User with phone '${phone}' does not already exists`);
 	}
 
-	// Update user code.
-	user.code = generateCode(8);
+	// Code check.
+	if(user.code !== code) {
+		throw new Error(`User with code '${code}' does not already exists`);
+	}
+
+	user.codeVerified = true;
+	user.token = generateCode(32);
 
 	// Save user by overwriting.
 	await userRepository.createUser(user);
 
-	return user.code;
+	return user.token;
 }

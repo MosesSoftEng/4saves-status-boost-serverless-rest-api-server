@@ -12,7 +12,7 @@ import {handlerPath} from '@libs/handler-resolver';
  */
 export default {
 	// Specifies the path to the handler function for the Lambda function and exported function name.
-	handler: `${handlerPath(__dirname)}/handler.createCodeHan`,
+	handler: `${handlerPath(__dirname)}/handler.verifyCodeHan`,
 
 	//  Array of event objects that trigger the Lambda function. Hooks lambda function to events.
 	events: [
