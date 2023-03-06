@@ -22,8 +22,8 @@ import { verifyCode } from './service';
  */
 const verifyCodeFun: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
 	try {
-		// TODO: use spread operator
-		const token = await verifyCode(event.body.phone, event.body.code);
+		// TODO: use destructuring
+		const token = await verifyCode(event);
 
 		return formatJSONResponse({
 			message: 'User created',
