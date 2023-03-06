@@ -41,6 +41,7 @@ const createUserFun: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 			data: newUser
 		});
 	} catch (error) {
+		// TODO: hide error from consumer only inhouse.
 		return formatJSONResponse({
 			statusCode: 500,
 			message: 'Failed to create user',
