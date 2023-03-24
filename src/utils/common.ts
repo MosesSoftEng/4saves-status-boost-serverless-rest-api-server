@@ -1,3 +1,6 @@
+
+// TODO: Function docs.
+// TODO: Convert to arrow function.
 export function generateCode(length: number): string {
 	const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 

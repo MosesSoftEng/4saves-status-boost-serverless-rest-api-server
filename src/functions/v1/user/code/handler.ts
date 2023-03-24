@@ -1,8 +1,4 @@
-/*
- * Module that;
- * - Contains lambda function code, processes input and calls appropriate service methods.
- */
-
+// TODO: Module docs
 // API Gateway proxy event for custom validation on request.
 import type {ValidatedEventAPIGatewayProxyEvent} from '@libs/api-gateway';
 
@@ -13,16 +9,12 @@ import {middyfy} from '@libs/lambda';
 
 // Structure of request.
 import schema from './schema';
-import verifyCodeschema from './verifyCodeschema';
 
 // Business logic aka services.
-import {createCode, verifyCode} from './service';
+import {createCode} from './service';
 
-//TODO: Document functions
 
-/*
- * createCodeHan - function
- */
+//TODO: Function docs
 const createCodeFun: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
 	try {
 		const code = await createCode(event.body.phone);
@@ -42,27 +34,4 @@ const createCodeFun: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 
 const createCodeHan = middyfy(createCodeFun);
 
-
-/*
- * Check if a code is valid.
- */
-const verifyCodeFun: ValidatedEventAPIGatewayProxyEvent<typeof verifyCodeschema> = async (event) => {
-	try {
-		const token = await verifyCode(event.queryStringParameters.phone, event.queryStringParameters.code);
-
-		return formatJSONResponse({
-			statusCode: 200,
-			message: 'Code verified',
-			data: token
-		});
-	} catch (error) {
-		return formatJSONResponse({
-			statusCode: 500,
-			message: error.message
-		});
-	}
-};
-
-const verifyCodeHan = middyfy(verifyCodeFun);
-
-export {createCodeHan, verifyCodeHan};
+export {createCodeHan};

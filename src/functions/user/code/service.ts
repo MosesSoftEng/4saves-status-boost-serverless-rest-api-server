@@ -25,3 +25,26 @@ export async function createCode(phone: string): Promise<string> {
 
 	return user.code;
 }
+
+// TODO: use destrucutured parameters.
+export async function verifyCode(phone: string, code: string): Promise<string> {
+	// Get user.
+	const user = await userRepository.getUserByPhone(phone);
+
+	// User check.
+	if (!user) {
+		throw new Error(`User with phone '${phone}' does not exists`);
+	}
+
+	// Code check.
+	if (user.code !== code) {
+		throw new Error(`User with code '${code}' does not exists`);
+	}
+
+	// Check if verified.
+	if (!user.codeVerified) {
+		throw new Error('User not yet verified');	
+	}
+
+	return user.token;
+}

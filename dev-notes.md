@@ -13,5 +13,8 @@ touch index.ts handler.ts schema.ts service.ts repository.ts model.ts mock.json
 # Install aws sdk as a development dependecy.
 npm install aws-sdk --save-dev
 
-
+# Create code feature.
+mkdir -p src/functions/userCodes
+cd src/functions/userCodes
+touch index.ts handler.ts schema.ts service.ts repository.ts model.ts mock.json
 ```
